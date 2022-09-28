@@ -9,15 +9,22 @@ import { Section } from './ui';
 class App extends Component {
   state = {
     pageNumber: 1,
-    name: 'cat',
+    name: '',
+  };
+
+  handleSubmit = (name, reset) => {
+    this.setState({ name });
+    reset();
   };
 
   render() {
     const { pageNumber, name } = this.state;
 
+    console.log(name);
+
     return (
       <Section>
-        <Searchbar />
+        <Searchbar handleSubmit={this.handleSubmit} />
         <Loader />
         <ImageGallery pageNumber={pageNumber} name={name} />
       </Section>

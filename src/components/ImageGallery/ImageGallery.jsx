@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Container } from 'components/ui';
+import ImageGalleryItem from '../ImageGalleryItem';
 
 // У відповіді від апі приходить масив об'єктів, в яких тобі цікаві лише наступні властивості.
 // id - унікальний ідентифікатор
@@ -28,17 +29,14 @@ class ImageGallery extends Component {
     loading: false,
   };
 
-  async componentDidMount() {
-    // console.log(this.props);
+  async componentDidUpdate(prevProps) {
     const { name, pageNumber } = this.props;
 
-    if (name === '') {
-      return;
+    if (prevProps.name !== name || prevProps.pageNumber !== pageNumber) {
+      this.setState({ loading: true });
+      const firstResult = await axiosSearch(name, pageNumber);
+      this.setState({ hits: firstResult, loading: false });
     }
-
-    this.setState({ loading: true });
-    const firstResult = await axiosSearch(name, pageNumber);
-    this.setState({ hits: firstResult, loading: false });
   }
 
   render() {
@@ -46,13 +44,7 @@ class ImageGallery extends Component {
     return (
       <Container fullWidth>
         <ul>
-          {hits.map(({ id, webformatURL, tags }) => {
-            return (
-              <li key={id}>
-                <img src={webformatURL} alt={tags} />
-              </li>
-            );
-          })}
+          <ImageGalleryItem hits={hits} />
         </ul>
       </Container>
     );
