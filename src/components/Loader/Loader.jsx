@@ -1,11 +1,13 @@
 import React from 'react';
-import { Container } from 'components/ui';
+import { Dna } from 'react-loader-spinner';
 
 function Loader() {
   return (
-    <Container>
-      <span>Loading pictures...</span>
-    </Container>
+    <>
+      <span>
+        <Dna />
+      </span>
+    </>
   );
 }
 

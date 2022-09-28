@@ -1,13 +1,19 @@
 import React from 'react';
+import { ImageItem, Image } from 'components/ui';
 
-function ImageGalleryItem({ hits }) {
+function ImageGalleryItem({ hits, onImgClick }) {
   return (
     <>
-      {hits.map(({ id, webformatURL, tags }) => {
+      {hits.map(({ id, webformatURL, tags, largeImageURL, webformatWidth }) => {
         return (
-          <li key={id}>
-            <img src={webformatURL} alt={tags} />
-          </li>
+          <ImageItem key={id}>
+            <Image
+              src={webformatURL}
+              alt={tags}
+              width={webformatWidth}
+              onClick={() => onImgClick(largeImageURL)}
+            />
+          </ImageItem>
         );
       })}
     </>

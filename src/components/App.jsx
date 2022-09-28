@@ -1,32 +1,49 @@
 import React from 'react';
 import { Component } from 'react';
-// import axios from 'axios';
 import Searchbar from './Searchbar';
-import Loader from './Loader';
 import ImageGallery from './ImageGallery';
+import Modal from './Modal';
 import { Section } from './ui';
 
 class App extends Component {
   state = {
     pageNumber: 1,
     name: '',
+    largeImgSrc: '',
   };
 
   handleSubmit = (name, reset) => {
-    this.setState({ name });
+    this.setState({ name, pageNumber: 1 });
     reset();
   };
 
-  render() {
-    const { pageNumber, name } = this.state;
+  handleClick = () => {
+    this.setState(prevState => {
+      return { pageNumber: prevState.pageNumber + 1 };
+    });
+  };
 
-    console.log(name);
+  openModal = url => {
+    this.setState({ largeImgSrc: url });
+  };
+
+  closeModal = () => {
+    this.setState({ largeImgSrc: '' });
+  };
+
+  render() {
+    const { pageNumber, name, largeImgSrc } = this.state;
 
     return (
       <Section>
         <Searchbar handleSubmit={this.handleSubmit} />
-        <Loader />
-        <ImageGallery pageNumber={pageNumber} name={name} />
+        {largeImgSrc && <Modal src={largeImgSrc} onClose={this.closeModal} />}
+        <ImageGallery
+          pageNumber={pageNumber}
+          name={name}
+          handleClick={this.handleClick}
+          openModal={this.openModal}
+        />
       </Section>
     );
   }

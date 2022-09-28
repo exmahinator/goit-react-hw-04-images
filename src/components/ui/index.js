@@ -1,2 +1,12 @@
 export { default as Container } from './Container.styled';
 export { default as Section } from './Section.styled';
+export { default as ImageContainer } from './ImageContainer.styled';
+export { default as ImageItem } from './ImageItem.styled';
+export { default as Image } from './Image.styled';
+export { default as LoadButton } from './LoadButton.styled';
+export { default as Spinner } from './Spinner.styled';
+export { default as ModalContainer } from './ModalContainer.styled';
+export { default as BigImg } from './BigImg.styled';
+export { default as SearchButton } from './SearchButton.styled';
+export { default as SearchInput } from './SearchInput.styled';
+export { default as IdleText } from './IdleText.styled';

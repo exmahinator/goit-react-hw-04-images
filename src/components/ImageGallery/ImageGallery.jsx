@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Container } from 'components/ui';
+import {
+  Container,
+  ImageContainer,
+  LoadButton,
+  Spinner,
+  IdleText,
+} from 'components/ui';
 import ImageGalleryItem from '../ImageGalleryItem';
+import Loader from '../Loader';
+// import Modal from '../Modal';
 
 // У відповіді від апі приходить масив об'єктів, в яких тобі цікаві лише наступні властивості.
 // id - унікальний ідентифікатор
@@ -17,36 +25,81 @@ const KEY =
 const axiosSearch = async (name, pageNumber) => {
   try {
     const data = await axios.get(`?q=${name}&page=${pageNumber}${KEY}`);
-    return data.data.hits;
+    // console.log(data.data);
+    // return data.data.hits;
+    return data.data;
   } catch (error) {
     return alert(error);
   }
 };
 
+const STATES = {
+  idle: 'idle',
+  pending: 'pending',
+};
+
+// ---------------------------------------------------------------------------------------
+
 class ImageGallery extends Component {
   state = {
     hits: [],
-    loading: false,
+    total: 0,
+    status: STATES.idle,
   };
 
   async componentDidUpdate(prevProps) {
     const { name, pageNumber } = this.props;
 
     if (prevProps.name !== name || prevProps.pageNumber !== pageNumber) {
-      this.setState({ loading: true });
-      const firstResult = await axiosSearch(name, pageNumber);
-      this.setState({ hits: firstResult, loading: false });
+      this.setState({ status: STATES.pending });
+
+      const { hits, total } = await axiosSearch(name, pageNumber);
+
+      this.setState(prevState => {
+        // console.log(prevState);
+        // console.log(prevState.hits);
+        return {
+          hits: pageNumber > 1 ? [...prevState.hits, ...hits] : hits,
+          status: STATES.resolved,
+          total,
+        };
+      });
+
+      setTimeout(() => {
+        // console.log(this.state.hits);
+        window.scrollTo({
+          top: this.state.hits.length * 500,
+          behavior: 'smooth',
+        });
+      }, 400);
     }
   }
 
   render() {
-    const { hits } = this.state;
+    const { hits, total, status } = this.state;
+
+    if (status === 'idle') {
+      return <IdleText>Please, enter your search...</IdleText>;
+    }
+
     return (
-      <Container fullWidth>
-        <ul>
-          <ImageGalleryItem hits={hits} />
-        </ul>
-      </Container>
+      <>
+        {status === 'pending' && (
+          <Spinner>
+            <Loader />
+          </Spinner>
+        )}
+        <Container flexColumn noPadding>
+          <ImageContainer noPadding>
+            <ImageGalleryItem hits={hits} onImgClick={this.props.openModal} />
+          </ImageContainer>
+          {hits.length > 0 && hits.length < total && (
+            <LoadButton type="button" onClick={() => this.props.handleClick()}>
+              "Load more..."
+            </LoadButton>
+          )}
+        </Container>
+      </>
     );
   }
 }

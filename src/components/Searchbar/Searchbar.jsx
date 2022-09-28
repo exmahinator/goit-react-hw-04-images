@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'components/ui';
+import { Container, SearchButton, SearchInput } from 'components/ui';
 import { Component } from 'react';
 
 class Searchbar extends Component {
@@ -9,19 +9,19 @@ class Searchbar extends Component {
 
   handleSearch = event => {
     const name = event.target.value;
-    console.log(event.target.value);
     this.setState({ name });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log('clicking');
-    console.log(this.props.handleSubmit);
+    if (!this.state.name) {
+      alert('Please enter your search request!');
+      return;
+    }
     this.props.handleSubmit(this.state.name, this.resetForm);
   };
 
   resetForm = () => {
-    console.log('reset');
     this.setState({ name: '' });
   };
 
@@ -29,11 +29,11 @@ class Searchbar extends Component {
     return (
       <Container blueBackground>
         <form onSubmit={this.handleSubmit}>
-          <button type="submit">
+          <SearchButton type="submit">
             <span>Search</span>
-          </button>
+          </SearchButton>
 
-          <input
+          <SearchInput
             type="text"
             autoComplete="off"
             autoFocus
