@@ -14,6 +14,7 @@ class Searchbar extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
     if (!this.state.name) {
       alert('Please enter your search request!');
       return;
