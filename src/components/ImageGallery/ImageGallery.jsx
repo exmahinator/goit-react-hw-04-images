@@ -95,7 +95,7 @@ class ImageGallery extends Component {
           </ImageContainer>
           {hits.length > 0 && hits.length < total && (
             <LoadButton type="button" onClick={() => this.props.handleClick()}>
-              "Load more..."
+              Load more...
             </LoadButton>
           )}
         </Container>
