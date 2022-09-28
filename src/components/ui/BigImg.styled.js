@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const BigImg = styled.img`
   display: flex;
-  width: 80%;
+  height: 90vh;
   border-radius: 20px;
 `;
 
