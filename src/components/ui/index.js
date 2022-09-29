@@ -10,3 +10,4 @@ export { default as BigImg } from './BigImg.styled';
 export { default as SearchButton } from './SearchButton.styled';
 export { default as SearchInput } from './SearchInput.styled';
 export { default as IdleText } from './IdleText.styled';
+export { default as LoadButtonContainer } from './LoadButtonContainer.styled';

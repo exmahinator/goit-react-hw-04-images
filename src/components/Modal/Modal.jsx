@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ModalContainer, BigImg } from 'components/ui';
+import PropTypes from 'prop-types';
 
 class Modal extends Component {
   componentDidMount() {
@@ -32,3 +33,7 @@ class Modal extends Component {
 }
 
 export default Modal;
+
+Modal.propTypes = {
+  src: PropTypes.string.isRequired,
+};

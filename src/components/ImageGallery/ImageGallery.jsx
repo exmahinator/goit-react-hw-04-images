@@ -1,37 +1,16 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axiosSearch from 'axiousRequest/AxiousRequest';
+import PropTypes from 'prop-types';
 import {
   Container,
   ImageContainer,
   LoadButton,
   Spinner,
   IdleText,
+  LoadButtonContainer,
 } from 'components/ui';
 import ImageGalleryItem from '../ImageGalleryItem';
 import Loader from '../Loader';
-// import Modal from '../Modal';
-
-// У відповіді від апі приходить масив об'єктів, в яких тобі цікаві лише наступні властивості.
-// id - унікальний ідентифікатор
-// webformatURL - посилання на маленьке зображення для списку карток
-// largeImageURL - посилання на велике зображення для модального вікна
-
-// https://pixabay.com/api/?q=cat&page=1&key=your_key&image_type=photo&orientation=horizontal&per_page=12
-
-axios.defaults.baseURL = 'https://pixabay.com/api/';
-const KEY =
-  '&key=29649041-262fdf0daa2a4569f2631b8dd&image_type=photo&orientation=horizontal&per_page=12';
-
-const axiosSearch = async (name, pageNumber) => {
-  try {
-    const data = await axios.get(`?q=${name}&page=${pageNumber}${KEY}`);
-    // console.log(data.data);
-    // return data.data.hits;
-    return data.data;
-  } catch (error) {
-    return alert(error);
-  }
-};
 
 const STATES = {
   idle: 'idle',
@@ -84,20 +63,26 @@ class ImageGallery extends Component {
 
     return (
       <>
-        {status === 'pending' && (
-          <Spinner>
-            <Loader />
-          </Spinner>
-        )}
         <Container flexColumn noPadding>
           <ImageContainer noPadding>
             <ImageGalleryItem hits={hits} onImgClick={this.props.openModal} />
           </ImageContainer>
-          {hits.length > 0 && hits.length < total && (
-            <LoadButton type="button" onClick={() => this.props.handleClick()}>
-              Load more...
-            </LoadButton>
-          )}
+
+          <LoadButtonContainer>
+            {status === 'pending' && (
+              <Spinner>
+                <Loader />
+              </Spinner>
+            )}
+            {hits.length > 0 && hits.length < total && status !== 'pending' && (
+              <LoadButton
+                type="button"
+                onClick={() => this.props.handleClick()}
+              >
+                Load more...
+              </LoadButton>
+            )}
+          </LoadButtonContainer>
         </Container>
       </>
     );
@@ -105,3 +90,8 @@ class ImageGallery extends Component {
 }
 
 export default ImageGallery;
+
+ImageGallery.propTypes = {
+  name: PropTypes.string.isRequired,
+  pageNumber: PropTypes.number.isRequired,
+};
