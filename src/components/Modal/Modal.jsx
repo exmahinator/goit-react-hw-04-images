@@ -24,7 +24,6 @@ class Modal extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <ModalContainer onClick={this.onBackdropClick}>
         <BigImg src={this.props.src} alt="Large img" />

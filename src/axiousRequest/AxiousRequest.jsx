@@ -13,10 +13,12 @@ const KEY =
 
 const axiosSearch = async (name, pageNumber) => {
   try {
-    const data = await axios.get(`?q=${name}&page=${pageNumber}${KEY}`);
-    return data.data;
+    const {
+      data: { hits, total },
+    } = await axios.get(`?q=${name}&page=${pageNumber}${KEY}`);
+    return { hits, total };
   } catch (error) {
-    return alert(error);
+    return alert('Error', error);
   }
 };
 
