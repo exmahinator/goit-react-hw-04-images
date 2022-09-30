@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, SearchButton, SearchInput } from 'components/ui';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Searchbar extends Component {
   state = {
@@ -27,6 +28,7 @@ class Searchbar extends Component {
   };
 
   render() {
+    // console.log(this.props.handleSubmit);
     return (
       <Container blueBackground>
         <form onSubmit={this.handleSubmit}>
@@ -49,3 +51,7 @@ class Searchbar extends Component {
 }
 
 export default Searchbar;
+
+Searchbar.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};

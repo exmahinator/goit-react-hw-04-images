@@ -56,6 +56,8 @@ class ImageGallery extends Component {
 
   render() {
     const { hits, total, status } = this.state;
+    // console.log(this.props.openModal);
+    // console.log(this.props.handleClick);
 
     if (status === 'idle') {
       return <IdleText>Please, enter your search...</IdleText>;
@@ -94,4 +96,6 @@ export default ImageGallery;
 ImageGallery.propTypes = {
   name: PropTypes.string.isRequired,
   pageNumber: PropTypes.number.isRequired,
+  openModal: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
