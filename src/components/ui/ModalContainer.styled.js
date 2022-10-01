@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const ModalContainer = styled.div`
   box-sizing: border-box;
-  z-index: 100;
+  z-index: 10;
   position: fixed;
   display: flex;
   justify-content: center;

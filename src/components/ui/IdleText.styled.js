@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const IdleText = styled.div`
-  margin-top: 20px;
+  margin-top: 100px;
   font-size: 30px;
   font-weight: bold;
   color: limegreen;

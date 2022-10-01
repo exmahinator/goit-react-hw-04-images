@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <Section>
-      <Searchbar handleSubmit={handleSubmit} />
+      <Searchbar resultSubmit={handleSubmit} />
       {largeImgSrc && <Modal src={largeImgSrc} onClose={closeModal} />}
       <ImageGallery
         pageNumber={pageNumber}

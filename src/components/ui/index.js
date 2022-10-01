@@ -6,6 +6,7 @@ export { default as Image } from './Image.styled';
 export { default as LoadButton } from './LoadButton.styled';
 export { default as Spinner } from './Spinner.styled';
 export { default as ModalContainer } from './ModalContainer.styled';
+export { default as ModalSubcontainer } from './ModalSubcontainer.styled';
 export { default as BigImg } from './BigImg.styled';
 export { default as SearchButton } from './SearchButton.styled';
 export { default as SearchInput } from './SearchInput.styled';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axiosSearch from 'axiousRequest/AxiousRequest';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   Container,
   ImageContainer,
@@ -32,7 +32,9 @@ const ImageGallery = ({ pageNumber, name, handleClick, openModal }) => {
     async function axiosRequest() {
       const { hits, total } = await axiosSearch(name, pageNumber);
 
-      setHitsReceived(hitsReceived => [...hitsReceived, ...hits]);
+      pageNumber > 1
+        ? setHitsReceived(hitsReceived => [...hitsReceived, ...hits])
+        : setHitsReceived(hits);
 
       setTotalElements(total);
     }
@@ -82,6 +84,13 @@ const ImageGallery = ({ pageNumber, name, handleClick, openModal }) => {
 };
 
 export default ImageGallery;
+
+ImageGallery.propTypes = {
+  name: PropTypes.string.isRequired,
+  pageNumber: PropTypes.number.isRequired,
+  openModal: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};
 
 // ------------------------------------------------------------------------------------------------------------------------
 

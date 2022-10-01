@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 // У відповіді від апі приходить масив об'єктів, в яких тобі цікаві лише наступні властивості.
 // id - унікальний ідентифікатор
@@ -23,3 +24,8 @@ const axiosSearch = async (name, pageNumber) => {
 };
 
 export default axiosSearch;
+
+axiosSearch.propTypes = {
+  name: PropTypes.string.isRequired,
+  pageNumber: PropTypes.number.isRequired,
+};
