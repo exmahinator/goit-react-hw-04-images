@@ -12,3 +12,4 @@ export { default as SearchButton } from './SearchButton.styled';
 export { default as SearchInput } from './SearchInput.styled';
 export { default as IdleText } from './IdleText.styled';
 export { default as LoadButtonContainer } from './LoadButtonContainer.styled';
+export { default as StyledContainer } from './StyledContainer.styled';

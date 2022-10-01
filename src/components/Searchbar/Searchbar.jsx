@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Container, SearchButton, SearchInput } from 'components/ui';
+import {
+  Container,
+  SearchButton,
+  SearchInput,
+  StyledContainer,
+} from 'components/ui';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
 
 const Searchbar = ({ resultSubmit }) => {
@@ -13,7 +20,7 @@ const Searchbar = ({ resultSubmit }) => {
   const handleSubmit = event => {
     event.preventDefault();
     if (!name) {
-      alert('Pleasem enter your search request!');
+      toast.warn('Please, enter your search request!');
       return;
     }
 
@@ -40,6 +47,17 @@ const Searchbar = ({ resultSubmit }) => {
           value={name}
         />
       </form>
+      <StyledContainer
+        position="top-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </Container>
   );
 };
